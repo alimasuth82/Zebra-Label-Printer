@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Zebra Label Printer</title>
+        <link rel="icon" type="image/x-icon" href="favicon.png">
+        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="side-menu.css">
+        <link rel="stylesheet" href="orders.css">
+    </head>
+    <body>
+        <nav>
+            <div class="company-logos">
+                <img src="square-logo.png" alt="Square Logo">
+                <img src="zebra-logo.png" alt="Zebra Technologies Logo">
+            </div>
+            <ul class="nav-links">
+                <li id="authLink">
+                    <a href="/connect/square" id="signInBtn">Sign in with Square</a>
+                    <div class="user-menu" id="userMenu" style="display: none;">
+                        <button class="user-menu-toggle" id="userMenuToggle">
+                            <span id="userName">User</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="https://squareup.com/dashboard" target="_blank">Dashboard</a>
+                            <a href="#" onclick="signOut(); return false;">Sign Out</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="heading-area">
+            <h1>Zebra Label Printer</h1>
+            <p>Print your order labels with ease.</p>
+        </div>
+
+        <div class="label-container">
+            <button class="label-nav-btn" onclick="previousLabel()" id="prevLabelBtn" disabled>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            
+            <div class="label">
+                <div class="label-top-row">
+                    <div class="order-number" id="orderNumber">#--</div>
+                    <div class="customer-name-container">
+                        <div id="customerNamePlaceholder" class="customer-name-placeholder">CUSTOMER NAME</div>
+                        <div id="customerName" class="customer-name" style="display: none;"></div>
+                    </div>
+                    <div class="item-count" id="itemTracker">-/-</div>
+                </div>
+                <div class="label-body">
+                    <h2 class="item-name" id="itemName">SELECT TRANSACTION</h2>
+                    <div class="separator-line"></div>
+                    <p class="item-details" id="itemDetails">CHOOSE AN ORDER TO VIEW DETAILS</p>
+                </div>
+            </div>
+            
+            <button class="label-nav-btn" onclick="nextLabel()" id="nextLabelBtn" disabled>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+
+        <div class="label-copies-control">
+            <button class="copy-btn" onclick="decrementCopies()" disabled>−</button>
+            <span class="copies-display" id="copiesDisplay">1</span>
+            <button class="copy-btn" onclick="incrementCopies()" disabled>+</button>
+        </div>
+        <p class="copies-label">Number of copies</p>
+
+        <div class="options">
+            <button onclick="selectTransaction()">Select a Transaction</button>
+            <button onclick="printLabels()">Print Labels</button>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer">
+            <p>This application is not affiliated with, endorsed by, or sponsored by Square, Inc. or Zebra Technologies Corporation. All trademarks are the property of their respective owners.</p>
+            <p style="margin-top: 10px;">Built by Ali Masuth for Best Foot Forward.</p>
+        </div>
+
+        <!-- Overlay -->
+        <div id="overlay" class="overlay" onclick="closeTransactionMenu()"></div>
+
+        <!-- Side Menu -->
+        <div id="transactionMenu" class="side-menu">
+            <div class="side-menu-header">
+                <h2>Select a Transaction</h2>
+                <button class="close-btn" onclick="closeTransactionMenu()">&times;</button>
+            </div>
+            <div class="side-menu-content">
+                <div class="search-container hidden" id="searchContainer">
+                    <input type="text" id="transactionSearch" class="search-input" placeholder="Search transactions...">
+                </div>
+                <p>Sign in to display transactions.</p>
+                <!-- Add your transaction list items here -->
+            </div>
+        </div>
+    </body>
+    
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+    <script src="zebra-printer.js"></script>
+    <script src="side-menu.js"></script>
+    <script src="square-orders.js"></script>
+</html>

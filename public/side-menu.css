@@ -1,0 +1,168 @@
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1500;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Side Menu */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -450px; /* Hidden off-screen to the left */
+    width: 450px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+}
+
+.side-menu.active {
+    left: 0; /* Slide in from the left */
+}
+
+.side-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px;
+    border-bottom: 1px solid #e8e8e8;
+    background-color: #fafafa;
+}
+
+.side-menu-header h2 {
+    font-size: 20pt;
+    font-weight: 600;
+    color: #0f0f0f;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 32pt;
+    color: #555555;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.close-btn:hover {
+    background-color: #e8e8e8;
+    color: #0f0f0f;
+}
+
+.side-menu-content {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+}
+
+.search-container {
+    margin-bottom: 20px;
+}
+
+.search-container.hidden {
+    display: none;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 12pt;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    background-color: #fafafa;
+    color: #0f0f0f;
+    outline: none;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.search-input:focus {
+    border-color: #0f0f0f;
+    background-color: #fff;
+}
+
+.search-input::placeholder {
+    color: #999999;
+}
+
+.side-menu-content p {
+    color: #555555;
+    font-size: 12pt;
+}
+/* Responsive Design for Side Menu */
+
+/* Mobile Styles (max 767px) */
+@media screen and (max-width: 767px) {
+    .side-menu {
+        left: -100%;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .side-menu-header {
+        padding: 20px 25px;
+    }
+
+    .side-menu-header h2 {
+        font-size: 18pt;
+    }
+
+    .side-menu-content {
+        padding: 25px;
+    }
+}
+
+/* Small Mobile Styles (max 480px) */
+@media screen and (max-width: 480px) {
+    .side-menu {
+        left: -100%;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .side-menu-header {
+        padding: 15px 20px;
+    }
+
+    .side-menu-header h2 {
+        font-size: 16pt;
+    }
+
+    .close-btn {
+        font-size: 28pt;
+        width: 35px;
+        height: 35px;
+    }
+
+    .side-menu-content {
+        padding: 20px;
+    }
+
+    .search-input {
+        font-size: 11pt;
+        padding: 10px 14px;
+    }
+}
