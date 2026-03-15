@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-const PORT_NUMBER = 3000;
+const PORT_NUMBER = process.env.PORT || 3000;
 
 // Store access tokens (in production, use a proper database)
 let accessTokenStore = {};
@@ -28,12 +28,9 @@ app.get("/connect/square", (req, res) => {
     "https://connect.squareup.com/oauth2/authorize" +
     `?client_id=${process.env.SQUARE_APP_ID}` +
     `&scope=${encodeURIComponent(scopes.join(' '))}` +
-    `&redirect_uri=${encodeURIComponent(
-      "http://localhost:3000/oauth/callback"
+    `&redirect_url=${encodeURIComponent(
+      `${process.env.BASE_URL}/oauth/callback`
     )}`;
-
-  console.log("AUTH URL:", authUrl);
-  console.log("Client ID:", process.env.SQUARE_APP_ID);
   res.redirect(authUrl);
 });
 
@@ -61,7 +58,7 @@ app.get("/oauth/callback", async (req, res) => {
         client_secret: process.env.SQUARE_APP_SECRET,
         code: code,
         grant_type: "authorization_code",
-        redirect_uri: "http://localhost:3000/oauth/callback"
+        redirect_uri: `${process.env.BASE_URL}/oauth/callback`
       })
     });
 
@@ -189,4 +186,4 @@ app.get("/api/merchant", (req, res) => {
   });
 });
 
-app.listen(PORT_NUMBER, () => console.log(`Server running at http://localhost:${PORT_NUMBER}`));
+app.listen(PORT_NUMBER, () => console.log(`Server running on port ${PORT_NUMBER}`));
