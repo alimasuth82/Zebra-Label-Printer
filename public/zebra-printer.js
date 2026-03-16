@@ -31,7 +31,6 @@ function printLabels() {
                     <span>${index + 1}/${state.selectedOrder.serviceItems.length}</span>
                 </div>
                 <br>
-                <br>
                 <div style="text-align:center; flex:1; display:flex; flex-direction:column; justify-content:center;">
                     <h2 style="font-size:11pt; margin:0;">${item.name.toUpperCase()}</h2>
                     <div style="width:100%; height:1px; background:#000; margin:3pt 0;"></div>
