@@ -33,7 +33,7 @@ app.get("/connect/square", (req, res) => {
     `?client_id=${process.env.SQUARE_APP_ID}` +
     `&scope=${encodeURIComponent(scopes.join(" "))}` +
     `&redirect_url=${encodeURIComponent(
-      `${process.env.BASE_URL}/oauth/callback`
+      `${process.env.BASE_URL}`
     )}`;
 
   console.log("Redirecting to Square OAuth:", authUrl);
@@ -75,7 +75,7 @@ app.get("/oauth/callback", async (req, res) => {
           client_secret: process.env.SQUARE_APP_SECRET,
           code: code,
           grant_type: "authorization_code",
-          redirect_url: `${process.env.BASE_URL}/oauth/callback`
+          redirect_url: `${process.env.BASE_URL}`
         })
       }
     );
