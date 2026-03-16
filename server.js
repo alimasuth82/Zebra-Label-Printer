@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import { exec } from "child_process";
 
 dotenv.config();
 
@@ -35,8 +36,6 @@ app.get("/connect/square", (req, res) => {
     `&redirect_url=${encodeURIComponent(
       `${process.env.BASE_URL}/oauth/callback`
     )}`;
-
-  console.log("Redirecting to Square OAuth:", authUrl);
 
   res.redirect(authUrl);
 });
@@ -94,8 +93,6 @@ app.get("/oauth/callback", async (req, res) => {
       refresh_token: tokenData.refresh_token,
       expires_at: tokenData.expires_at
     };
-
-    console.log("Merchant connected:", merchantId);
 
     /*
     ------------------------------------
@@ -329,5 +326,6 @@ START SERVER
 ------------------------------------------------
 */
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`The server is now running.`);
+  exec(`start http://localhost:${PORT}`);
 });
