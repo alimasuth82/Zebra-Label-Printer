@@ -303,6 +303,8 @@ function createOrderCard(order, orderNumber) {
 }
 
 function displayCurrentItem() {
+    const EXCLUDED_MODIFIER_NAMES = ['color', 'brand', 'memo', 'material'];
+    
     const { selectedOrder, currentItemIndex } = state;
     if (!selectedOrder) return;
 
