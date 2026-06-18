@@ -1,5 +1,11 @@
 const EXCLUDED_MODIFIER_NAMES = ['color', 'brand', 'memo', 'material'];
 
+function isExcludedModifier(modifierName) {
+    const normalized = (modifierName || '').toLowerCase().trim();
+    const key = normalized.split(':')[0].trim();
+    return EXCLUDED_MODIFIER_NAMES.includes(key);
+}
+
 function printLabels() {
     if (!state.selectedOrder?.serviceItems?.length) {
         alert("Please select an order with service items first.");
@@ -22,7 +28,7 @@ function printLabels() {
             
             // Build details string
             const details = [];
-            if (item.modifiers) item.modifiers.filter(m => !EXCLUDED_MODIFIER_NAMES.includes(m.name.toLowerCase())).forEach(m => details.push(m.name.toUpperCase()));
+            if (item.modifiers) item.modifiers.filter(m => !isExcludedModifier(m.name)).forEach(m => details.push(m.name.toUpperCase()));
             if (item.note) details.push(item.note.toUpperCase());
             const detailsText = details.length > 0 ? details.join(' / ') : 'STANDARD SERVICE';
 
