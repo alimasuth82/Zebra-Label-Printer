@@ -303,8 +303,6 @@ function createOrderCard(order, orderNumber) {
 }
 
 function displayCurrentItem() {
-    const EXCLUDED_MODIFIER_NAMES = ['color', 'brand', 'memo', 'material'];
-    
     const { selectedOrder, currentItemIndex } = state;
     if (!selectedOrder) return;
 
@@ -323,7 +321,7 @@ function displayCurrentItem() {
     itemNameEl.textContent = item ? item.name.toUpperCase() : 'NO SERVICE ITEMS';
 
     const details = [];
-    if (item?.modifiers) item.modifiers.filter(m => !EXCLUDED_MODIFIER_NAMES.includes(m.name.toLowerCase())).forEach(m => details.push(m.name.toUpperCase()));
+    if (item?.modifiers) item.modifiers.filter(m => !isExcludedModifier(m.name)).forEach(m => details.push(m.name.toUpperCase()));
     if (item?.note) details.push(item.note.toUpperCase());
     
     document.querySelector('.item-details').textContent = details.length > 0 ? details.join(' / ') : 'STANDARD SERVICE';
