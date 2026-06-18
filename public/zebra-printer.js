@@ -1,3 +1,5 @@
+const EXCLUDED_MODIFIER_NAMES = ['color', 'brand', 'memo', 'material'];
+
 function printLabels() {
     if (!state.selectedOrder?.serviceItems?.length) {
         alert("Please select an order with service items first.");
@@ -20,7 +22,7 @@ function printLabels() {
             
             // Build details string
             const details = [];
-            if (item.modifiers) item.modifiers.forEach(m => details.push(m.name.toUpperCase()));
+            if (item.modifiers) item.modifiers.filter(m => !EXCLUDED_MODIFIER_NAMES.includes(m.name.toLowerCase())).forEach(m => details.push(m.name.toUpperCase()));
             if (item.note) details.push(item.note.toUpperCase());
             const detailsText = details.length > 0 ? details.join(' / ') : 'STANDARD SERVICE';
 
@@ -30,6 +32,7 @@ function printLabels() {
                     <span style="flex:1; text-align:center;">${state.selectedOrder.customerName.toUpperCase()}</span>
                     <span>${index + 1}/${state.selectedOrder.serviceItems.length}</span>
                 </div>
+                <br>
                 <br>
                 <div style="text-align:center; flex:1; display:flex; flex-direction:column; justify-content:center;">
                     <h2 style="font-size:11pt; margin:0;">${item.name.toUpperCase()}</h2>
